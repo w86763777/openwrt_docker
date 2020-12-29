@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --system --create-home --home-dir /home/openwrt --shell /bin/bash \
-    --groups sudo --password openwrt openwrt
+    --groups sudo openwrt
+RUN echo 'openwrt:openwrt' | chpasswd
     
-USER openwrt
-WORKDIR /home/openwrt
+ENTRYPOINT service ssh restart && bash
